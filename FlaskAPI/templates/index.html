@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Salary Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .form-group {
+            flex: 0 0 48%;
+            margin-bottom: 20px;
+        }
+        label {
+            margin: 10px 0 5px;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #5cb85c;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto 0;
+        }
+        input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            z-index: 1000;
+            text-align: center;
+            width: 300px;
+        }
+        .popup h2 {
+            color: #333;
+        }
+        .popup .close {
+            cursor: pointer;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #5cb85c;
+            color: white;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .popup .close:hover {
+            background-color: #4cae4c;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay" id="overlay"></div>
+    <div class="container">
+        <h1>Predict Salary</h1>
+        <form id="salaryForm" action="/predict" method="post">
+            <div class="form-group">
+                <label for="rating">Rating (e.g., 3.8):</label>
+                <input type="number" id="rating" name="rating" step="0.1" required>
+            </div>
+            <div class="form-group">
+                <label for="size">Size (e.g., 501 to 1000 employees):</label>
+                <input type="text" id="size" name="size" required>
+            </div>
+            <div class="form-group">
+                <label for="type_of_ownership">Type of Ownership (e.g., Company - Private):</label>
+                <input type="text" id="type_of_ownership" name="type_of_ownership" required>
+            </div>
+            <div class="form-group">
+                <label for="industry">Industry (e.g., Aerospace & Defense):</label>
+                <input type="text" id="industry" name="industry" required>
+            </div>
+            <div class="form-group">
+                <label for="sector">Sector (e.g., Aerospace & Defense):</label>
+                <input type="text" id="sector" name="sector" required>
+            </div>
+            <div class="form-group">
+                <label for="revenue">Revenue (e.g., $50 to $100 million (USD)):</label>
+                <input type="text" id="revenue" name="revenue" required>
+            </div>
+            <div class="form-group">
+                <label for="num_comp">Number of Competitors (e.g., 0):</label>
+                <input type="number" id="num_comp" name="num_comp" required>
+            </div>
+            <div class="form-group">
+                <label for="hourly">Hourly (0 or 1):</label>
+                <input type="number" id="hourly" name="hourly" min="0" max="1" required>
+            </div>
+            <div class="form-group">
+                <label for="employer_provided">Employer Provided (0 or 1):</label>
+                <input type="number" id="employer_provided" name="employer_provided" min="0" max="1" required>
+            </div>
+            <div class="form-group">
+                <label for="job_state">Job State (e.g., NM):</label>
+                <input type="text" id="job_state" name="job_state" required>
+            </div>
+            <div class="form-group">
+                <label for="same_state">Same State (0 or 1):</label>
+                <input type="number" id="same_state" name="same_state" min="0" max="1" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age (e.g., 47):</label>
+                <input type="number" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="python_yn">Python (0 or 1):</label>
+                <input type="number" id="python_yn" name="python_yn" min="0" max="1" required>
+            </div>
+            <div class="form-group">
+                <label for="spark">Spark (0 or 1):</label>
+                <input type="number" id="spark" name="spark" min="0" max="1" required>
+            </div>
+            <div class="form-group">
+                <label for="aws">AWS (0 or 1):</label>
+                <input type="number" id="aws" name="aws" min="0" max="1" required>
+            </div>
+            <div class="form-group">
+                <label for="excel">Excel (0 or 1):</label>
+                <input type="number" id="excel" name="excel" min="0" max="1" required>
+            </div>
+            <div class="form-group">
+                <label for="job_simp">Job Simplified (e.g., data scientist):</label>
+                <input type="text" id="job_simp" name="job_simp" required>
+            </div>
+            <div class="form-group">
+                <label for="seniority">Seniority (e.g., na):</label>
+                <input type="text" id="seniority" name="seniority" required>
+            </div>
+            <div class="form-group">
+                <label for="desc_len">Description Length (e.g., 2536):</label>
+                <input type="number" id="desc_len" name="desc_len" required>
+            </div>
+            <input type="submit" value="Predict">
+        </form>
+    </div>
+    <div class="popup" id="popup">
+        <h2>The estimated Salary Prediction is $<span id="predictedSalary"></span></h2>
+        <button class="close" onclick="closePopup()">Close</button>
+    </div>
+    <script>
+        document.getElementById('salaryForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var prediction = 134300; // Placeholder value, replace with actual prediction logic
+            document.getElementById('predictedSalary').textContent = prediction.toLocaleString();
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        });
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
