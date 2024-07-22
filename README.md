@@ -70,7 +70,7 @@ In this step, I built a flask API endpoint that was hosted on a local webserver.
 
 The web application allows users to predict salaries by entering various job-related parameters, providing a seamless and user-friendly experience.
 
-![alt text](https://github.com/BethlehemDesalgne/Data-Science-Salary-Estimator/blob/main/predict_salary.png "Predict Salary")
+
 ![alt text](https://github.com/BethlehemDesalgne/Data-Science-Salary-Estimator/blob/main/predicted_salary.png "Predicted Salary")
 
 
