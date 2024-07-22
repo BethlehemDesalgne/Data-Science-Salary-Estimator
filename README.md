@@ -68,7 +68,7 @@ The Random Forest model far outperformed the other approaches on the test and va
 ## Productionization 
 In this step, I built a flask API endpoint that was hosted on a local webserver.The API endpoint takes in a request with a list of values from a job listing and returns an estimated salary. 
 
-![alt text](https://github.com/BethlehemDesalgne/Data-Science-Salary-Estimator/blob/main/predict_salary.png "Predict Salary")
+![alt text](https://github.com/BethlehemDesalgne/Data-Science-Salary-Estimator/blob/main/predict_salary_2.png "Predict Salary")
 
 
 The web application allows users to predict salaries by entering various job-related parameters, providing a seamless and user-friendly experience.
